@@ -3,8 +3,10 @@
 const express = require("express");
 const path = require("path");
 const fs = require("fs");
+const { Resend } = require("resend");
 
 const app = express();
+const resend = new Resend(process.env.RESEND_API_KEY || "re_dummy");
 const PORT = process.env.PORT || 3000;
 
 // Body Parser Middleware
@@ -331,6 +333,76 @@ app.post("/api/inquire", checkRateLimit, (req, res) => {
   fs.appendFile(leadsPath, JSON.stringify(leadLog) + "\n", "utf8", (err) => {
     if (err) console.error("Failed to append lead logs locally:", err);
   });
+
+  // Dispatches secure lead notifications if Resend API Key is defined (Render Env Vars)
+  if (process.env.RESEND_API_KEY) {
+    const notifyEmails = [];
+    if (process.env.NOTIFICATION_EMAIL) {
+      notifyEmails.push(process.env.NOTIFICATION_EMAIL);
+    }
+    if (process.env.SMS_GATEWAY_EMAIL) {
+      notifyEmails.push(process.env.SMS_GATEWAY_EMAIL);
+    }
+
+    if (notifyEmails.length > 0) {
+      resend.emails.send({
+        from: 'Dan Handyman Leads <onboarding@resend.dev>',
+        to: notifyEmails,
+        subject: `🛠️ New Handyman Lead: ${cleanName} - ${cleanCity}`,
+        html: `
+          <div style="font-family: sans-serif; line-height: 1.6; max-width: 600px; border: 1px solid #d2c5c3; border-radius: 8px; overflow: hidden; background: #faf9f6; margin: 0 auto; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+            <div style="background: #1a365d; color: white; padding: 24px; text-align: center;">
+              <h1 style="margin: 0; font-size: 1.8rem; font-weight: bold; letter-spacing: 1px;">DAN // <span style="color: #8c5a3c;">FAMILY MAN</span></h1>
+              <p style="margin: 5px 0 0 0; opacity: 0.9; font-size: 0.95rem;">New Carpentry & Woodwork Lead Inquiry</p>
+            </div>
+            
+            <div style="padding: 24px;">
+              <h2 style="color: #1a365d; font-size: 1.25rem; margin-top: 0; border-bottom: 2px solid #8c5a3c; padding-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;">Client Details</h2>
+              <table style="width: 100%; border-collapse: collapse; margin-bottom: 24px;">
+                <tr>
+                  <td style="padding: 8px 0; font-weight: bold; color: #555; width: 35%; border-bottom: 1px solid #e2e8f0;">Client Name:</td>
+                  <td style="padding: 8px 0; color: #222; border-bottom: 1px solid #e2e8f0;">${cleanName}</td>
+                </tr>
+                <tr>
+                  <td style="padding: 8px 0; font-weight: bold; color: #555; border-bottom: 1px solid #e2e8f0;">Contact Info:</td>
+                  <td style="padding: 8px 0; color: #222; border-bottom: 1px solid #e2e8f0; font-weight: 500;">${cleanContact}</td>
+                </tr>
+                <tr>
+                  <td style="padding: 8px 0; font-weight: bold; color: #555; border-bottom: 1px solid #e2e8f0;">Neighborhood/City:</td>
+                  <td style="padding: 8px 0; color: #222; border-bottom: 1px solid #e2e8f0;">${cleanCity}</td>
+                </tr>
+              </table>
+              
+              <h2 style="color: #1a365d; font-size: 1.25rem; border-bottom: 2px solid #8c5a3c; padding-bottom: 6px; margin-top: 0; text-transform: uppercase; letter-spacing: 0.5px;">Job Description</h2>
+              <div style="background: #faf4eb; border-left: 4px solid #8c5a3c; padding: 16px; border-radius: 4px; margin-bottom: 24px; color: #333; font-style: italic; font-size: 1.05rem; line-height: 1.5;">
+                "${cleanDesc}"
+              </div>
+              
+              <h2 style="color: #1a365d; font-size: 1.25rem; border-bottom: 2px solid #8c5a3c; padding-bottom: 6px; margin-top: 0; text-transform: uppercase; letter-spacing: 0.5px;">Context Details</h2>
+              <table style="width: 100%; border-collapse: collapse;">
+                <tr>
+                  <td style="padding: 8px 0; font-weight: bold; color: #555; width: 35%; border-bottom: 1px solid #e2e8f0;">Inquired Project:</td>
+                  <td style="padding: 8px 0; color: #222; border-bottom: 1px solid #e2e8f0;">${cleanTitle || "None (General Inquiry)"}</td>
+                </tr>
+                <tr>
+                  <td style="padding: 8px 0; font-weight: bold; color: #555; border-bottom: 1px solid #e2e8f0;">Referral Link:</td>
+                  <td style="padding: 8px 0; color: #0284c7; border-bottom: 1px solid #e2e8f0; font-size: 0.9rem; word-break: break-all;">${cleanLink || "None"}</td>
+                </tr>
+              </table>
+            </div>
+            
+            <div style="background: #e2e8f0; color: #666; padding: 12px; font-size: 0.75rem; text-align: center;">
+              Dispatched securely by Resend at: ${new Date().toLocaleString()} (ET)
+            </div>
+          </div>
+        `
+      }).then(response => {
+        console.log("Lead email dispatched successfully via Resend:", response);
+      }).catch(err => {
+        console.error("Resend email dispatch failure:", err);
+      });
+    }
+  }
   
   res.json({ success: true, message: "Lead submitted successfully." });
 });
