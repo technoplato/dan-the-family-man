@@ -12,6 +12,7 @@ This log documents all master milestones, architecture design audits, and techni
   * **Seeding & Active Web Assets:** Purged duplicate mockup images and the face photo mockup from `/website/public/uploads/images/`, and seeded descriptive category-specific image cards (`bookshelves_category.png`, `fans_category.png`, etc.) directly from the high-fidelity mockups.
   * **CI Build Verification Plugin:** Designed and integrated a GitHub Actions workflow `.github/workflows/build-status.yml` to automatically verify node installs and Express server boot listening health on every commit.
   * **README & Status Badges:** Documented the CI pipeline and Render CD status triggers inside the main `README.md` with active badges.
+  * **Server-Side Dynamic Meta Injection (SSR):** Implemented Express-level dynamic metadata routing for `/project.html` and `/category.html`. When shared, the server intercepts requests, parses query parameters (`?id=...`), reads `projects.json`, and dynamically injects the project or category title, description, and high-fidelity custom photo into the HTML header on-the-fly before serving it. This ensures all chat crawlers (iMessage, Slack, Facebook) immediately render custom, rich, project-specific Open Graph link previews instead of a static generic placeholder.
 
 ---
 
