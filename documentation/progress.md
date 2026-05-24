@@ -4,6 +4,17 @@ This log documents all master milestones, architecture design audits, and techni
 
 ---
 
+### Saturday, May 23rd, 2026, 22:56:15
+* **Milestone:** Strict Open Graph Landscape SEO Preview & Portfolio Re-Organization
+* **Changes Completed:**
+  * **Strict 1.91:1 Aspect Ratio:** Generated and cropped the Open Graph preview card (`og_preview.png`) to exactly **1200x630 pixels** to prevent any cutoffs in iMessage or other chat client link previews.
+  * **Mockups Folder Re-organization:** Segregated the `/mock-ups/` folder into three distinct, non-duplicated folders: `/likes/` (liked mockups), `/dislikes/` (moving the disliked personal photo mockup here), and `/need-to-look-at/` (other desktop and mobile views).
+  * **Seeding & Active Web Assets:** Purged duplicate mockup images and the face photo mockup from `/website/public/uploads/images/`, and seeded descriptive category-specific image cards (`bookshelves_category.png`, `fans_category.png`, etc.) directly from the high-fidelity mockups.
+  * **CI Build Verification Plugin:** Designed and integrated a GitHub Actions workflow `.github/workflows/build-status.yml` to automatically verify node installs and Express server boot listening health on every commit.
+  * **README & Status Badges:** Documented the CI pipeline and Render CD status triggers inside the main `README.md` with active badges.
+
+---
+
 ### Saturday, May 23rd, 2026, 10:44:15
 * **Milestone:** 100% Free Cloud Deployment Blueprint & Path Restructuring
 * **Changes Completed:**

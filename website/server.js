@@ -33,7 +33,7 @@ try {
       }
     });
     // Create categories fallback placeholder image
-    const sampleMock = path.join(mockupsSource, "smoke_test_mockup.png");
+    const sampleMock = path.join(mockupsSource, "likes/option_5_category_details_bookshelves.PNG");
     const placeholders = [
       "bookshelves_category.png",
       "beams_category.png",
@@ -117,7 +117,7 @@ app.post("/api/projects/add", (req, res) => {
       const sanitizedCat = {
         id: sanitizeText(category.id).toLowerCase(),
         name: sanitizeText(category.name),
-        image: sanitizeText(category.image || "/uploads/images/smoke_test_mockup.png"),
+        image: sanitizeText(category.image || "/uploads/images/bookshelves_category.png"),
         seo_phrase: sanitizeText(category.seo_phrase)
       };
       
@@ -134,11 +134,11 @@ app.post("/api/projects/add", (req, res) => {
         categoryId: sanitizeText(project.categoryId),
         title: sanitizeText(project.title),
         description: sanitizeText(project.description),
-        before: sanitizeText(project.before || "/uploads/images/smoke_test_mockup.png"),
-        after: sanitizeText(project.after || "/uploads/images/smoke_test_mockup.png"),
+        before: sanitizeText(project.before || "/uploads/images/bookshelves_category.png"),
+        after: sanitizeText(project.after || "/uploads/images/bookshelves_category.png"),
         phases: Array.isArray(project.phases) ? project.phases.map(p => ({
           name: sanitizeText(p.name),
-          image: sanitizeText(p.image || "/uploads/images/smoke_test_mockup.png"),
+          image: sanitizeText(p.image || "/uploads/images/bookshelves_category.png"),
           description: sanitizeText(p.description)
         })) : []
       };

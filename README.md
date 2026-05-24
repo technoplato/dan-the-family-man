@@ -1,5 +1,6 @@
 # Dan the Family Man 🛠️
 
+[![Build & Smoke Test Status](https://github.com/technoplato/dan-the-family-man/actions/workflows/build-status.yml/badge.svg)](https://github.com/technoplato/dan-the-family-man/actions)
 [![Render Live](https://img.shields.io/badge/Render-Live_Hobby-1B3B2B?logo=render&style=flat-square&logoColor=white)](https://dan-the-family-man.onrender.com/)
 [![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/technoplato/dan-the-family-man)
 
@@ -55,3 +56,11 @@ dan-the-family-man/
 To support **100% free hosting ($0/mo)** on the Hobby plan without paid database subscriptions:
 * **Locally:** You can run `node server.js` and use the built-in admin dashboard (`/api/projects/add`) to dynamically add categories, upload images, and save them permanently to your disk using your Cloudflare Tunnel (`nofi.com`).
 * **In the Cloud:** To add photos to the live Render cloud site for free, drop your images into `/website/public/uploads/images/`, append your details to `projects.json`, and commit/push to GitHub. Render automatically catches the push and rebuilds the site statically!
+
+---
+
+## 🚀 Deployment & Build Verification
+
+* **Automated CI Build Status:** The status badge at the top of this repository verifies that the web app and Node/Express server compile and launch successfully on GitHub Actions.
+* **Render CD Integration:** Render is directly connected to our GitHub repository. On every push to the `main` branch, Render's Hobby plan automatically pulls the latest changes, builds the app, and rolls out the update to [dan-the-family-man.onrender.com](https://dan-the-family-man.onrender.com/).
+* **Commit Deploy Status:** You can see exactly which commit corresponds to the active live build by looking at the **Environments** or **Deployments** panel on the right sidebar of our GitHub repository page.
