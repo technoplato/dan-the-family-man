@@ -1,0 +1,10 @@
+# Node modules
+website/node_modules/
+
+# Local lead logs
+website/public/data/leads.jsonl
+
+# System files
+.DS_Store
+Thumbs.db
+*.log

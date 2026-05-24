@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Inquire about a custom carpentry or handyman project with Dan the Family Man. Quick response rate-limited secure form.">
+  <title>Get a Quote | Dan the Family Man</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Collapsed Mobile Drawer Navigation -->
+  <div class="dimmer-overlay" id="dimmer_overlay"></div>
+  <nav class="mobile-nav-drawer" id="mobile_drawer">
+    <a href="index.html">Home</a>
+    <a href="index.html#projects_anchor">Projects</a>
+    <a href="about.html">About Dan</a>
+    <a href="contact.html">Contact Us</a>
+  </nav>
+
+  <!-- Sticky Navbar Header -->
+  <header>
+    <div class="container">
+      <a href="index.html" class="logo-text">Dan // <span>Family Man</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#projects_anchor">Projects</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html" class="back-link" style="margin:0; padding: 6px 16px; border: 2px solid var(--accent-wood); border-radius: 6px;">Get a Quote</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger_menu" aria-label="Toggle Navigation Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Centralized Form Section -->
+  <main class="container" style="padding-top: 60px; min-height: 70vh; max-width: 600px;">
+    
+    <article class="contact-form-card" style="margin-bottom: 40px;">
+      <h3 style="font-size: 2rem; margin-bottom: 8px;">Let's Get Started</h3>
+      <p style="font-size: 1.05rem; margin-bottom: 24px;">
+        Provide your contact information and describe what you need Dan to build or install.
+      </p>
+
+      <form id="lead_inquiry_form">
+        <!-- Hidden Parameter Tracking Fields (tamper-proof payload) -->
+        <input type="hidden" name="project_title" id="project_title_field">
+        <input type="hidden" name="project_link" id="project_link_field">
+
+        <div class="form-group">
+          <label for="client_name">Your Name</label>
+          <input type="text" id="client_name" name="name" class="form-control" placeholder="e.g. John Doe" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="client_contact">Phone or Email</label>
+          <input type="text" id="client_contact" name="contact" class="form-control" placeholder="e.g. 904-555-0199 or john@mail.com" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="client_city">City / Neighborhood</label>
+          <input type="text" id="client_city" name="city" class="form-control" placeholder="e.g. Amelia Island" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="job_description">Brief description of the job</label>
+          <textarea id="job_description" name="description" class="form-control" rows="5" placeholder="e.g. I need custom mudroom built-ins similar to the farmhouse locker projects..." required></textarea>
+        </div>
+        
+        <button type="submit" class="btn-primary" style="font-size: 1.1rem; padding: 16px;">Submit Request</button>
+      </form>
+    </article>
+  </main>
+
+  <!-- SEO Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h4>Dan the Family Man</h4>
+          <p>Reliable craftsman servicing Yulee, North Jax, Fernandina, and Amelia Island. Dedicated to high-fidelity custom builds, shelving, and home repairs.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Our Specialties</h4>
+          <ul class="footer-seo-links">
+            <li><a href="category.html?id=bookshelves">Built-in Farmhouse Bookshelves</a></li>
+            <li><a href="category.html?id=fans">Ceiling Fan Installation</a></li>
+            <li><a href="category.html?id=beams">Structural Beam Installation</a></li>
+            <li><a href="category.html?id=cabinetry">Custom Cabinetry & Shelving</a></li>
+            <li><a href="category.html?id=custombuilds">Drop & Stops (Mudroom Lockers)</a></li>
+            <li><a href="category.html?id=barndoors">Custom Barn Door Installation</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact & Hours</h4>
+          <p style="margin-bottom: 8px;"><strong>Areas:</strong> Yulee, Fernandina, Amelia Island, North Jax</p>
+          <p style="margin-bottom: 8px;"><strong>Hours:</strong> Mon - Sat: 8:00 AM - 6:00 PM</p>
+          <p><strong>Lead Time:</strong> Dan responds within 24 hours.</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Dan the Family Man. Built with integrity. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/main.js"></script>
+  <script src="js/inquiry.js"></script>
+</body>
+</html>

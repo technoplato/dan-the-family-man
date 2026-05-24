@@ -1,0 +1,97 @@
+{
+  "categories": [
+    {
+      "id": "bookshelves",
+      "name": "Custom Bookshelves",
+      "image": "/images/bookshelves_category.png",
+      "seo_phrase": "built-in-farmhouse-bookshelves"
+    },
+    {
+      "id": "beams",
+      "name": "Structural Beams",
+      "image": "/images/beams_category.png",
+      "seo_phrase": "structural-beam-installation"
+    },
+    {
+      "id": "fans",
+      "name": "Fan Installs",
+      "image": "/images/fans_category.png",
+      "seo_phrase": "ceiling-fan-installation"
+    },
+    {
+      "id": "cabinetry",
+      "name": "Cabinet Installs",
+      "image": "/images/cabinetry_category.png",
+      "seo_phrase": "custom-cabinetry-shelving"
+    },
+    {
+      "id": "bars",
+      "name": "Bar Installs",
+      "image": "/images/bars_category.png",
+      "seo_phrase": "custom-woodworking"
+    },
+    {
+      "id": "childproofing",
+      "name": "Childproofing",
+      "image": "/images/childproofing_category.png",
+      "seo_phrase": "custom-woodworking"
+    },
+    {
+      "id": "barndoors",
+      "name": "Barn Doors",
+      "image": "/images/barndoors_category.png",
+      "seo_phrase": "custom-barn-door-installation"
+    },
+    {
+      "id": "custombuilds",
+      "name": "Custom Builds",
+      "image": "/images/custombuilds_category.png",
+      "seo_phrase": "drop-and-stops-mudroom-lockers"
+    }
+  ],
+  "projects": [
+    {
+      "id": "amelia-island-bookshelf",
+      "categoryId": "bookshelves",
+      "title": "Amelia Island Built-in Bookshelves",
+      "description": "A floor-to-ceiling custom library corner built-in in dark oak featuring integrated warm LED lighting, heavy crown molding, and customized shelf sizing to fit the client's books perfectly.",
+      "before": "/images/option_5_category_details_bookshelves.png",
+      "after": "/images/option_7_project_phases.png",
+      "phases": [
+        {
+          "name": "Phase 1: Framing",
+          "image": "/images/option_7_project_phases.png",
+          "description": "Constructed the raw heavy structural wood framework anchored directly into the wall studs and drywall base."
+        },
+        {
+          "name": "Phase 2: Assembly & Shelving",
+          "image": "/images/option_7_project_phases.png",
+          "description": "Assembled the solid dark oak shelves, routing custom slots for wiring and lighting fixtures."
+        },
+        {
+          "name": "Phase 3: Crown & Lighting",
+          "image": "/images/option_7_project_phases.png",
+          "description": "Installed elegant top crown molding, soft-glow lighting under the shelves, and premium lacquer finish."
+        }
+      ]
+    },
+    {
+      "id": "fernandina-cabinetry",
+      "categoryId": "cabinetry",
+      "title": "Fernandina Custom Shelving & Cabinetry",
+      "description": "Stunning under-stairs built-in custom cabinets and shelving in rich walnut wood, showcasing hand-stained finishes, perfect door panel routing, and tight joinery.",
+      "before": "/images/option_8_project_grid.png",
+      "after": "/images/option_8_project_grid.png",
+      "phases": []
+    },
+    {
+      "id": "yulee-mudroom",
+      "categoryId": "custombuilds",
+      "title": "Yulee Farmhouse Mudroom Benches",
+      "description": "A highly durable farmhouse mudroom bench with coat hooks, shoe cubbies, and integrated storage baskets. Built with solid hard maple and dark walnut benches.",
+      "before": "/images/option_9_project_minimal.png",
+      "after": "/images/option_9_project_minimal.png",
+      "phases": []
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "dan-the-family-man-website",
+  "version": "1.0.0",
+  "description": "Premium framework-free handyman & custom carpentry dynamic website for Dan the Family Man",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.0"
+  },
+  "author": "Antigravity Pair-Programmer",
+  "license": "ISC"
+}
