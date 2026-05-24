@@ -12,9 +12,9 @@ This file contains strict instructions for subsequent AI coding assistants worki
 * CSS must use native variables (`--primary-blue`, etc.) and modern CSS features (like Grid, Flexbox, Aspect-Ratio, and Container Queries).
 
 ### 2. File and Data Structure
-* All project data (categories, details, before/after phases, and images) must be dynamically read from and written to `/public/data/projects.json`.
+* All project data (categories, details, before/after phases, and images) must be dynamically read from and written to `/public/uploads/data/projects.json`.
 * Do **NOT** hardcode images or copy into HTML files. Keep layouts template-driven so that the admin page builder continues to work seamlessly.
-* Images are stored strictly in `/public/images/`.
+* Images are stored strictly in `/public/uploads/images/`.
 
 ---
 
@@ -81,3 +81,21 @@ This file contains strict instructions for subsequent AI coding assistants worki
 * Limit client form submissions to a maximum of **5 submissions per hour per IP** using local caching.
 * Exceeding limits must yield an HTTP `429 Too Many Requests` error with clean UI notifications.
 * Sanitize all input fields on the backend by stripping HTML tags before logging or routing.
+
+---
+
+## 🚀 Ephemeral Free-Tier Git-Ops Deployment Method (Hobby Plan)
+*Last Updated: Saturday, May 23rd, 2026, 10:44:15*
+
+When deploying on the 100% free cloud plans (such as Render Free Tier or stateless serverless functions):
+* **No Dynamic Server Writes**: The cloud filesystem is ephemeral. Uploads and updates via `/api/projects/add` or `/api/upload` will NOT persist across container restarts.
+* **The Git-Ops Workflow**: AI Developer Agents must perform project additions and updates directly via Git:
+  1. Save raw images under `/website/public/uploads/images/`.
+  2. Edit `/website/public/uploads/data/projects.json` to insert the new category or project details (referencing `/uploads/images/[filename]`).
+  3. Commit and push the updates directly to the GitHub repository:
+     ```bash
+     git add .
+     git commit -m "Git-ops dynamic project addition"
+     git push origin main
+     ```
+  4. Render will automatically catch the push, rebuild the site, and render the new portfolio items permanently for **$0/month**.
