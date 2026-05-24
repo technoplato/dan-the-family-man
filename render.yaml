@@ -1,0 +1,13 @@
+# render.yaml - Render Blueprint Spec for Dan the Family Man
+services:
+  - type: web
+    name: dan-the-family-man
+    env: node
+    plan: starter # Starter plan allows persistent disks!
+    rootDir: website
+    buildCommand: npm install
+    startCommand: npm start
+    disk:
+      name: uploads-disk
+      mountPath: public/uploads
+      sizeGB: 1

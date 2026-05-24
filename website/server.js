@@ -16,10 +16,14 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // Seeding standard assets with mockups we generated (so we don't have broken images!)
 const mockupsSource = path.join(__dirname, "../mock-ups");
-const imagesDest = path.join(__dirname, "public/images");
+const imagesDest = path.join(__dirname, "public/uploads/images");
 
 try {
   if (fs.existsSync(mockupsSource)) {
+    // Make sure public/uploads/images exists
+    if (!fs.existsSync(imagesDest)) {
+      fs.mkdirSync(imagesDest, { recursive: true });
+    }
     const mockupFiles = fs.readdirSync(mockupsSource);
     mockupFiles.forEach(file => {
       const srcFile = path.join(mockupsSource, file);
@@ -89,7 +93,7 @@ const sanitizeText = (text) => {
 
 // 1. Fetch dynamic projects portfolio list
 app.get("/api/projects", (req, res) => {
-  const dataPath = path.join(__dirname, "public/data/projects.json");
+  const dataPath = path.join(__dirname, "public/uploads/data/projects.json");
   fs.readFile(dataPath, "utf8", (err, data) => {
     if (err) {
       return res.status(500).json({ error: "Error reading database." });
@@ -100,7 +104,7 @@ app.get("/api/projects", (req, res) => {
 
 // 2. Add Category or Project dynamically (Admin Page Builder Interface API)
 app.post("/api/projects/add", (req, res) => {
-  const dataPath = path.join(__dirname, "public/data/projects.json");
+  const dataPath = path.join(__dirname, "public/uploads/data/projects.json");
   const { category, project } = req.body;
 
   fs.readFile(dataPath, "utf8", (err, data) => {
@@ -113,7 +117,7 @@ app.post("/api/projects/add", (req, res) => {
       const sanitizedCat = {
         id: sanitizeText(category.id).toLowerCase(),
         name: sanitizeText(category.name),
-        image: sanitizeText(category.image || "/images/smoke_test_mockup.png"),
+        image: sanitizeText(category.image || "/uploads/images/smoke_test_mockup.png"),
         seo_phrase: sanitizeText(category.seo_phrase)
       };
       
@@ -130,11 +134,11 @@ app.post("/api/projects/add", (req, res) => {
         categoryId: sanitizeText(project.categoryId),
         title: sanitizeText(project.title),
         description: sanitizeText(project.description),
-        before: sanitizeText(project.before || "/images/smoke_test_mockup.png"),
-        after: sanitizeText(project.after || "/images/smoke_test_mockup.png"),
+        before: sanitizeText(project.before || "/uploads/images/smoke_test_mockup.png"),
+        after: sanitizeText(project.after || "/uploads/images/smoke_test_mockup.png"),
         phases: Array.isArray(project.phases) ? project.phases.map(p => ({
           name: sanitizeText(p.name),
-          image: sanitizeText(p.image || "/images/smoke_test_mockup.png"),
+          image: sanitizeText(p.image || "/uploads/images/smoke_test_mockup.png"),
           description: sanitizeText(p.description)
         })) : []
       };
@@ -188,7 +192,7 @@ app.post("/api/inquire", checkRateLimit, (req, res) => {
   console.log("-----------------------------------------");
   
   // Save lead locally to an inquiry file log system (append format)
-  const leadsPath = path.join(__dirname, "public/data/leads.jsonl");
+  const leadsPath = path.join(__dirname, "public/uploads/data/leads.jsonl");
   fs.appendFile(leadsPath, JSON.stringify(leadLog) + "\n", "utf8", (err) => {
     if (err) console.error("Failed to append lead logs locally:", err);
   });

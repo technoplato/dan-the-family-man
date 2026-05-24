@@ -36,7 +36,7 @@ async function loadPortfolioData() {
   } catch (error) {
     // Local fallback for client static testing
     try {
-      const response = await fetch("/public/data/projects.json");
+      const response = await fetch("/public/uploads/data/projects.json");
       const data = await response.json();
       initializePage(data);
     } catch (fallbackErr) {
