@@ -339,19 +339,27 @@ app.post("/api/inquire", checkRateLimit, (req, res) => {
     const notifyEmails = [];
     if (process.env.NOTIFICATION_EMAIL) {
       notifyEmails.push(process.env.NOTIFICATION_EMAIL);
-    }
-    if (process.env.SMS_GATEWAY_EMAIL) {
-      notifyEmails.push(process.env.SMS_GATEWAY_EMAIL);
+    } else {
+      notifyEmails.push("halfjew22@gmail.com"); // Verified custom domain fallback testing email
     }
     
-    // Sandbox fallback: If no env variables are set, send to the registered Resend account owner
+    if (process.env.SMS_GATEWAY_EMAIL) {
+      notifyEmails.push(process.env.SMS_GATEWAY_EMAIL);
+    } else {
+      // Fallback carrier SMS gateways for 618-920-1167
+      notifyEmails.push("6189201167@tmomail.net");
+      notifyEmails.push("6189201167@vtext.com");
+      notifyEmails.push("6189201167@txt.att.net");
+    }
+    
+    // Safety fallback
     if (notifyEmails.length === 0) {
       notifyEmails.push("lustig@knophy.com");
     }
 
     if (notifyEmails.length > 0) {
       resend.emails.send({
-        from: 'Dan Handyman Leads <onboarding@resend.dev>',
+        from: 'Dan Handyman Leads <leads@knophy.com>',
         to: notifyEmails,
         subject: `🛠️ New Handyman Lead: ${cleanName} - ${cleanCity}`,
         html: `
