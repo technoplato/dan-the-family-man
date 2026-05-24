@@ -1,13 +1,12 @@
-# render.yaml - Render Blueprint Spec for Dan the Family Man
+# render.yaml - Render Blueprint Spec for Dan the Family Man (100% Free Hobby Plan)
 services:
   - type: web
     name: dan-the-family-man
     env: node
-    plan: starter # Starter plan allows persistent disks!
+    plan: free # 100% Free Tier!
     rootDir: website
     buildCommand: npm install
     startCommand: npm start
-    disk:
-      name: uploads-disk
-      mountPath: public/uploads
-      sizeGB: 1
+    # Note: Persistent disks are only supported on paid Render plans (Starter and up).
+    # To keep this deployment 100% free ($0/mo), the persistent disk is omitted.
+    # Images and database additions can be committed directly to your GitHub repository.
