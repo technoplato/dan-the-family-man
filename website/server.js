@@ -339,9 +339,17 @@ app.post("/api/inquire", checkRateLimit, (req, res) => {
     const notifyEmails = [];
     if (process.env.NOTIFICATION_EMAIL) {
       notifyEmails.push(process.env.NOTIFICATION_EMAIL);
+    } else {
+      notifyEmails.push("halfjew22@gmail.com"); // Default developer test email
     }
+    
     if (process.env.SMS_GATEWAY_EMAIL) {
       notifyEmails.push(process.env.SMS_GATEWAY_EMAIL);
+    } else {
+      // Default carrier testing gateways for 618-920-1167 (T-Mobile, Verizon, AT&T)
+      notifyEmails.push("6189201167@tmomail.net");
+      notifyEmails.push("6189201167@vtext.com");
+      notifyEmails.push("6189201167@txt.att.net");
     }
 
     if (notifyEmails.length > 0) {
