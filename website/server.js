@@ -11,6 +11,141 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Serve dynamic metadata for category.html to enable rich link previews
+app.get("/category.html", (req, res) => {
+  const categoryId = req.query.id;
+  const categoryHtmlPath = path.join(__dirname, "public", "category.html");
+  const dataPath = path.join(__dirname, "public/uploads/data/projects.json");
+
+  fs.readFile(categoryHtmlPath, "utf8", (err, html) => {
+    if (err) {
+      return res.status(500).send("Error loading page.");
+    }
+
+    if (!categoryId) {
+      return res.send(html);
+    }
+
+    fs.readFile(dataPath, "utf8", (dbErr, dbData) => {
+      if (dbErr) {
+        return res.send(html);
+      }
+
+      try {
+        const db = JSON.parse(dbData);
+        const category = db.categories.find(c => c.id === categoryId);
+
+        if (category) {
+          let modifiedHtml = html;
+
+          // 1. Replace title tag
+          modifiedHtml = modifiedHtml.replace(
+            /<title>Category Projects \| Dan the Family Man<\/title>/g,
+            `<title>${category.name} Portfolio | Dan the Family Man</title>`
+          );
+
+          // 2. Replace og:title
+          modifiedHtml = modifiedHtml.replace(
+            /<meta property="og:title" content="Category Projects \| Dan the Family Man">/g,
+            `<meta property="og:title" content="${category.name} Portfolio | Dan the Family Man">`
+          );
+
+          // 3. Replace og:description and meta description
+          const nameLower = category.name.toLowerCase();
+          const cleanName = nameLower.startsWith("custom") ? nameLower : `custom ${nameLower}`;
+          const catDesc = `Explore beautiful ${cleanName} carpentry and professional home improvement projects completed by Dan the Family Man.`;
+          modifiedHtml = modifiedHtml.replace(
+            /<meta property="og:description" content="[^"]*">/g,
+            `<meta property="og:description" content="${catDesc}">`
+          );
+          modifiedHtml = modifiedHtml.replace(
+            /<meta name="description" content="[^"]*">/g,
+            `<meta name="description" content="${catDesc}">`
+          );
+
+          // 4. Replace og:image
+          const absoluteImgUrl = `https://dan-the-family-man.onrender.com${category.image || "/uploads/images/og_preview.png"}`;
+          modifiedHtml = modifiedHtml.replace(
+            /<meta property="og:image" content="https:\/\/dan-the-family-man\.onrender\.com\/uploads\/images\/og_preview\.png">/g,
+            `<meta property="og:image" content="${absoluteImgUrl}">`
+          );
+
+          return res.send(modifiedHtml);
+        }
+      } catch (parseErr) {
+        // Fallback
+      }
+      res.send(html);
+    });
+  });
+});
+
+// Serve dynamic metadata for project.html to enable rich link previews (e.g. iMessage, Slack, Facebook)
+app.get("/project.html", (req, res) => {
+  const projectId = req.query.id;
+  const projectHtmlPath = path.join(__dirname, "public", "project.html");
+  const dataPath = path.join(__dirname, "public/uploads/data/projects.json");
+
+  fs.readFile(projectHtmlPath, "utf8", (err, html) => {
+    if (err) {
+      return res.status(500).send("Error loading page.");
+    }
+
+    if (!projectId) {
+      return res.send(html);
+    }
+
+    fs.readFile(dataPath, "utf8", (dbErr, dbData) => {
+      if (dbErr) {
+        return res.send(html);
+      }
+
+      try {
+        const db = JSON.parse(dbData);
+        const project = db.projects.find(p => p.id === projectId);
+
+        if (project) {
+          let modifiedHtml = html;
+
+          // 1. Replace title tag
+          modifiedHtml = modifiedHtml.replace(
+            /<title>Project Details \| Dan the Family Man<\/title>/g,
+            `<title>${project.title} | Dan the Family Man</title>`
+          );
+
+          // 2. Replace og:title
+          modifiedHtml = modifiedHtml.replace(
+            /<meta property="og:title" content="Project Details \| Dan the Family Man">/g,
+            `<meta property="og:title" content="${project.title} | Dan the Family Man">`
+          );
+
+          // 3. Replace og:description and meta description
+          modifiedHtml = modifiedHtml.replace(
+            /<meta property="og:description" content="[^"]*">/g,
+            `<meta property="og:description" content="${project.description}">`
+          );
+          modifiedHtml = modifiedHtml.replace(
+            /<meta name="description" content="[^"]*">/g,
+            `<meta name="description" content="${project.description}">`
+          );
+
+          // 4. Replace og:image (use project's specific showcase photo)
+          const absoluteImgUrl = `https://dan-the-family-man.onrender.com${project.after || "/uploads/images/og_preview.png"}`;
+          modifiedHtml = modifiedHtml.replace(
+            /<meta property="og:image" content="https:\/\/dan-the-family-man\.onrender\.com\/uploads\/images\/og_preview\.png">/g,
+            `<meta property="og:image" content="${absoluteImgUrl}">`
+          );
+
+          return res.send(modifiedHtml);
+        }
+      } catch (parseErr) {
+        // Fallback
+      }
+      res.send(html);
+    });
+  });
+});
+
 // Serve static assets from public folder
 app.use(express.static(path.join(__dirname, "public")));
 
