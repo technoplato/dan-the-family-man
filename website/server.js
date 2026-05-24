@@ -130,7 +130,7 @@ app.get("/project.html", (req, res) => {
           );
 
           // 4. Replace og:image (use project's specific showcase photo)
-          const absoluteImgUrl = `https://dan-the-family-man.onrender.com${project.after || "/uploads/images/og_preview.png"}`;
+          const absoluteImgUrl = `https://dan-the-family-man.onrender.com${project.og_image || project.after || "/uploads/images/og_preview.png"}`;
           modifiedHtml = modifiedHtml.replace(
             /<meta property="og:image" content="https:\/\/dan-the-family-man\.onrender\.com\/uploads\/images\/og_preview\.png">/g,
             `<meta property="og:image" content="${absoluteImgUrl}">`

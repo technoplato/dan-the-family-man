@@ -57,6 +57,7 @@
       "description": "A floor-to-ceiling custom library corner built-in in dark oak featuring integrated warm LED lighting, heavy crown molding, and customized shelf sizing to fit the client's books perfectly.",
       "before": "/uploads/images/option_5_category_details_bookshelves.png",
       "after": "/uploads/images/option_7_project_phases.png",
+      "og_image": "/uploads/images/amelia_island_bookshelves_og.png",
       "phases": [
         {
           "name": "Phase 1: Framing",
@@ -82,6 +83,7 @@
       "description": "Stunning under-stairs built-in custom cabinets and shelving in rich walnut wood, showcasing hand-stained finishes, perfect door panel routing, and tight joinery.",
       "before": "/uploads/images/option_8_project_grid.png",
       "after": "/uploads/images/option_8_project_grid.png",
+      "og_image": "/uploads/images/fernandina_cabinetry_og.png",
       "phases": []
     },
     {
@@ -91,6 +93,7 @@
       "description": "A highly durable farmhouse mudroom bench with coat hooks, shoe cubbies, and integrated storage baskets. Built with solid hard maple and dark walnut benches.",
       "before": "/uploads/images/option_9_project_minimal.png",
       "after": "/uploads/images/option_9_project_minimal.png",
+      "og_image": "/uploads/images/yulee_mudroom_og.png",
       "phases": []
     }
   ]
